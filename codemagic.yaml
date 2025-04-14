@@ -6,7 +6,7 @@ workflows:
       node: 18.16.0
       java: 11
       groups:
-        - build 
+        - build
     scripts:
       - name: Install dependencies
         script: |
@@ -14,8 +14,12 @@ workflows:
       - name: Install EAS CLI
         script: |
           npm install -g eas-cli
-      - name: Build APK with EAS
+      - name: Log in to Expo with token
         script: |
-          eas build --platform android --profile preview --non-interactive --access-token $EXPO_TOKEN
+          export EXPO_TOKEN=$EXPO_TOKEN
+          npx eas whoami || echo "Using Expo Token"
+      - name: Build APK with EAS (uses EXPO_TOKEN env automatically)
+        script: |
+          eas build --platform android --profile preview --non-interactive
     artifacts:
       - build/**/outputs/**/*.apk
