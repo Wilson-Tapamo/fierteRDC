@@ -1,19 +1,21 @@
 workflows:
-  build-android:
-    name: Build Fierté RDC APK
+  build-expo-android:
+    name: Expo Build for Android
     max_build_duration: 20
     environment:
-      vars:
-        PACKAGE_NAME: "com.fierterdc.app"
       node: 18.16.0
       java: 11
+      expo-cli: latest
     scripts:
       - name: Install dependencies
         script: |
           npm install
-      - name: Build Android APK
+      - name: Login to Expo (optional if not using EAS)
         script: |
-          cd android
-          ./gradlew assembleRelease
+          npx expo login --username=$EXPO_USERNAME --password=$EXPO_PASSWORD
+      - name: Build APK with EAS
+        script: |
+          npm install -g eas-cli
+          eas build --platform android --profile preview --non-interactive
     artifacts:
-      - android/app/build/outputs/**/*.apk
+      - build/**/outputs/**/*.apk
