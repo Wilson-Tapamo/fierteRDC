@@ -5,17 +5,21 @@ workflows:
     environment:
       node: 18.16.0
       java: 11
-      expo-cli: latest
+      vars:
+        EXPO_TOKEN: $EXPO_TOKEN
     scripts:
       - name: Install dependencies
         script: |
           npm install
+      - name: Install EAS CLI
+        script: |
+          npm install -g eas-cli
       - name: Login to Expo (optional if not using EAS)
         script: |
           npx expo login --username=$EXPO_USERNAME --password=$EXPO_PASSWORD
-      - name: Build APK with EAS
+      - name: Build APK
         script: |
-          npm install -g eas-cli
-          eas build --platform android --profile preview --non-interactive
+          npx eas build --platform android --profile preview --non-interactive
     artifacts:
       - build/**/outputs/**/*.apk
+
