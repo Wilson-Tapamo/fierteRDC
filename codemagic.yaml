@@ -1,6 +1,6 @@
 workflows:
   build-expo-android:
-    name: Expo Build with Token
+    name: Expo Build with Valid Token
     max_build_duration: 20
     environment:
       node: 18.16.0
@@ -14,11 +14,8 @@ workflows:
       - name: Install EAS CLI
         script: |
           npm install -g eas-cli
-      - name: Login with EXPO_TOKEN
-        script: |
-          npx eas whoami --access-token $EXPO_TOKEN
       - name: Build APK
         script: |
-          npx eas build --platform android --profile preview --non-interactive --non-interactive --access-token $EXPO_TOKEN
+          npx eas build --platform android --profile preview --non-interactive --access-token $EXPO_TOKEN
     artifacts:
       - build/**/outputs/**/*.apk
