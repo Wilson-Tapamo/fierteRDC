@@ -14,6 +14,9 @@ workflows:
       - name: Install EAS CLI
         script: |
           npm install -g eas-cli
+      - name: Login to Expo with token
+        script: |
+          eas whoami || eas login --access-token $EXPO_TOKEN
       - name: Build APK with EAS
         script: |
           eas build --platform android --profile preview --non-interactive
