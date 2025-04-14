@@ -6,7 +6,7 @@ workflows:
       node: 18.16.0
       java: 11
       vars:
-        EAS_ACCESS_TOKEN: $EAS_ACCESS_TOKEN
+        EXPO_TOKEN: $EXPO_TOKEN
     scripts:
       - name: Install dependencies
         script: |
@@ -18,4 +18,4 @@ workflows:
         script: |
           eas build --platform android --profile preview --non-interactive
     artifacts:
-      - build/**/outputs/**/*.apk*
+      - build/**/outputs/**/*.apk
