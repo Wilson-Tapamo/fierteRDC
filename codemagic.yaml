@@ -1,12 +1,12 @@
 workflows:
   build-expo-android:
-    name: Expo Build with Valid Token
+    name: Expo APK build
     max_build_duration: 20
     environment:
       node: 18.16.0
       java: 11
-      vars:
-        EXPO_TOKEN: $EXPO_TOKEN
+      groups:
+        - build # 👈 Ce groupe doit être créé dans Codemagic (avec EXPO_TOKEN par exemple)
     scripts:
       - name: Install dependencies
         script: |
@@ -14,8 +14,8 @@ workflows:
       - name: Install EAS CLI
         script: |
           npm install -g eas-cli
-      - name: Build APK
+      - name: Build APK with EAS
         script: |
-          npx eas build --platform android --profile preview --non-interactive --access-token $EXPO_TOKEN
+          eas build --platform android --profile preview --non-interactive --access-token $EXPO_TOKEN
     artifacts:
       - build/**/outputs/**/*.apk
