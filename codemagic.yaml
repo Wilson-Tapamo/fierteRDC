@@ -6,7 +6,7 @@ workflows:
       node: 18.16.0
       java: 11
       groups:
-        - build # 👈 Ce groupe doit être créé dans Codemagic (avec EXPO_TOKEN par exemple)
+        - build 
     scripts:
       - name: Install dependencies
         script: |
